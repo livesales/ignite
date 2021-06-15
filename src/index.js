@@ -16,7 +16,7 @@ function checksExistsUserAccount(request, response, next) {
   const { username } = request.headers;
   user = users.find((element) => element.username === username);
   if (!user) {
-    return response.status(400).json({"error" : "customer not found"})
+    return response.status(400).json({error : "customer not found"})
   }
   request.user = user;
   return next()
@@ -28,7 +28,7 @@ app.post('/users', (request, response) => {
   alreadyExist = users.some((users) => users.username === username);
 
   if (alreadyExist) {
-    return response.status(400).json({'erro': 'usuario ja existe'})
+    return response.status(400).json({error: 'usuario ja existe'})
   }
 
   users.push({
@@ -70,7 +70,7 @@ app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
 
   const updateTodos = user.todos.find((element) => element.id === id);
   if (!updateTodos){
-    return response.status(400).json({"error": "To do not found"})
+    return response.status(400).json({error: "To do not found"})
   } 
   updateTodos.title = title;
   updateTodos.deadline = new Date(deadline);
@@ -84,7 +84,7 @@ app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
 
   const updateTodos = user.todos.find((element) => element.id === id);
   if (!updateTodos){
-    return response.status(400).json({"error": "To do not found"})
+    return response.status(400).json({ error: "To do not found"})
   } 
   updateTodos.done = true;
   return response.status(200).json(updateTodos);
